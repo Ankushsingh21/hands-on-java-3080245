@@ -3,9 +3,9 @@ package bank;
 public class Account {
   private int id;
   private String type;
-  private int balance;
+  private double balance;
 
-  public Account(int id, String type, int balance) {
+  public Account(int id, String type, Double balance) {
     setId(id);
     setType(type);
     setBalance(balance);
@@ -27,11 +27,11 @@ public class Account {
     this.type = type;
   }
 
-  public int getBalance() {
+  public double getBalance() {
     return this.balance;
   }
 
-  public void setBalance(int balance) {
+  public void setBalance(double balance) {
     this.balance = balance;
   }
 

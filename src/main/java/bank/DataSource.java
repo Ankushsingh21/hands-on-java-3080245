@@ -13,7 +13,7 @@ public class DataSource {
 
     try {
       connection = DriverManager.getConnection(db_file);
-      System.out.println("we' are connected");
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -42,8 +42,29 @@ public class DataSource {
     return customer;
   }
 
+  public static Account getAccount(int id) {
+    String sql = "select * from Accounts where id = ?";
+    Account account = null;
+    try (Connection connection = connect();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setInt(1, id);
+      try (ResultSet resultset = statement.executeQuery()) { // it will return a result set
+        account = new Account(
+            resultset.getInt("id"),
+            resultset.getString("type"),
+            resultset.getDouble("balance"));
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return account;
+  }
+
   public static void main(String[] args) {
-    Customer customer = getCustomer("twest8o@friendfeed.com");
+    Customer customer = getCustomer("clillea8@nasa.gov");
     System.out.println(customer.getName());
+    Account account = getAccount(47373);
+    System.out.println(account.getBalance());
   }
 }
