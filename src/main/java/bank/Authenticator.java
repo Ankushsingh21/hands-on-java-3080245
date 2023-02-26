@@ -1,7 +1,5 @@
+package bank;
 import javax.security.auth.login.LoginException;
-
-import bank.Customer;
-import bank.DataSource;
 
 public class Authenticator {
 
