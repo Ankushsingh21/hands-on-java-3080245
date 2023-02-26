@@ -1,7 +1,6 @@
 package bank;
 
 import java.util.Scanner;
-
 import javax.security.auth.login.LoginException;
 
 public class Menu {
@@ -11,21 +10,25 @@ public class Menu {
     System.out.println("Welcome to Global international bank");
     Menu menu = new Menu();
     menu.scanner = new Scanner(System.in);
-
+    Customer customer = menu.authenticatUser();
+    if (customer != null) {
+      Account account = DataSource.getAccount(customer.getAccountId());
+      menu.showMenu(customer, account);
+    }
+    else System.out.println("Customer dose not  exsist ");
     menu.scanner.close();
 
   }
 
   private Customer authenticatUser() {
     System.out.println("Please enter the username");
-    Scanner username = scanner.next();
+    String username = scanner.next();
     System.out.println("Please enter the password");
-    Scanner password = scanner.next();
+    String password = scanner.next();
     Customer customer = null;
     try {
-      
       customer = Authenticator.login(username, password);
-      
+ 
     } catch (LoginException e) {
       System.out.println("there was an error "+ e.getMessage());
     }
@@ -33,5 +36,8 @@ public class Menu {
     return customer;
     
   }
-  
+
+  private void showMenu(Customer customer, Account account){
+    
+  }
 }
