@@ -61,10 +61,24 @@ public class DataSource {
     return account;
   }
 
-  public static void main(String[] args) {
-    Customer customer = getCustomer("clillea8@nasa.gov");
-    System.out.println(customer.getName());
-    Account account = getAccount(47373);
-    System.out.println(account.getBalance());
+  public static void updateAccountBalance(int accountId, double balance) {
+    String sql = "update account set balance =? where accountId= ?";
+    try (Connection connection = connect();
+        PreparedStatement statment = connection.prepareStatement(sql);) {
+      statment.setDouble(1, balance);
+      statment.setInt(2, accountId);
+
+      statment.executeUpdate();
+         
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    
   }
+  // public static void main(String[] args) {
+  //   Customer customer = getCustomer("clillea8@nasa.gov");
+  //   System.out.println(customer.getName());
+  //   Account account = getAccount(47373);
+  //   System.out.println(account.getBalance());
+  // }
 }
